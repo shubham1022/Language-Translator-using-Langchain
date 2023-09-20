@@ -19,14 +19,10 @@ st.header("Language Translator")
 # create our examples
 examples = [
     {
-        "query": "summarize the below text in 20 words:The first decade of the 20th century saw increasing diplomatic tension between the European great powers. This reached a breaking point on 28 June 1914, when a Bosnian Serb named Gavrilo Princip assassinated Archduke Franz Ferdinand, heir to the Austro-Hungarian throne. Austria-Hungary held Serbia responsible, and declared war on 28 July. Russia came to Serbia's defence, and by 4 August, Germany, France and Britain were drawn into the war, with the Ottoman Empire joining in November the same year.",
-        "answer": "20 शब्दों में संक्षेप: 20वीं सदी का पहला दशक यूरोपीय महाशक्तियों के बीच वैदेशिक तनाव को बढ़ावा दिया। 28 जून 1914 को, गाव्रिलो प्रिंसिप ने अर्कड्यूक फ्रांज फर्डिनैंड की हत्या की, जिन्हें ऑस्ट्रो-हंगेरी की गद्दी के उत्तराधिकारी थे। ऑस्ट्रिया-हंगरी ने सर्बिया को जिम्मेदार ठहराया, और 28 जुलाई को युद्ध का घोषणा किया। रूस ने सर्बिया की रक्षा की, और 4 अगस्त तक, जर्मनी, फ्रांस और ब्रिटेन भी युद्ध में शामिल हो गए, और नवंबर में ऑटोमन साम्राज्य भी जुड़ गया।"
-    },
-    {
-        "query": "Who are you? Can you tell me about Bharat?",
-        "answer": "तुम कौन हो? क्या तुम मुझे भारत के बारे में बता सकते हो?"
+        "query": "The first decade of the 20th century saw increasing diplomatic tension between the European great powers. This reached a breaking point on 28 June 1914, when a Bosnian Serb named Gavrilo Princip assassinated Archduke Franz Ferdinand, heir to the Austro-Hungarian throne. Austria-Hungary held Serbia responsible, and declared war on 28 July. Russia came to Serbia's defence, and by 4 August, Germany, France and Britain were drawn into the war, with the Ottoman Empire joining in November the same year.",
+        "answer": "20वीं सदी का पहला दशक यूरोपीय महाशक्तियों के बीच वैदेशिक तनाव को बढ़ावा दिया। 28 जून 1914 को, गाव्रिलो प्रिंसिप ने अर्कड्यूक फ्रांज फर्डिनैंड की हत्या की, जिन्हें ऑस्ट्रो-हंगेरी की गद्दी के उत्तराधिकारी थे। ऑस्ट्रिया-हंगरी ने सर्बिया को जिम्मेदार ठहराया, और 28 जुलाई को युद्ध का घोषणा किया। रूस ने सर्बिया की रक्षा की, और 4 अगस्त तक, जर्मनी, फ्रांस और ब्रिटेन भी युद्ध में शामिल हो गए, और नवंबर में ऑटोमन साम्राज्य भी जुड़ गया।"
     }
-            ]
+              ]
 
 # create a example template
 example_template = """
@@ -45,9 +41,12 @@ example_prompt = PromptTemplate(
 prefix = """You are a Language Translator English to Hindi bot,
  your task is convert the given english text into the Hindi text.
  you are not allowed to give any answer of any question.Suppose user is 
- asking any question by using words who, where, what,?,how, and when, you are 
+ asking any question by using who, where, what, how, and when,so you are 
  not allowed to answer to any questions although you should convert these questions
- to the Hindi language. In a nutshell your task is only convert the english text into 
+ to the Hindi language. Apart from all this if user asks questions using
+ 'question mark'(?) symbol, so in this case you need to treat the question as normal text
+ and your task should be convertion of text from english to Hindi text.
+ In a nutshell your task is only convert the english text into 
  Hindi text instead of replying the questions into the Hindi language."""
 
 suffix = """
@@ -67,10 +66,10 @@ few_shot_prompt_template = FewShotPromptTemplate(
 
 def load_llm():
     """
-    The function `load_llm` returns an instance of the OpenAI language model with a temperature of 0.5.
-    :return: The function `load_llm` returns an instance of the OpenAI class with a temperature of 0.5.
+    The function `load_llm` returns an instance of the OpenAI language model with a temperature of 0.
+    :return: The function `load_llm` returns an instance of the OpenAI class with a temperature of 0.
     """
-    llm = OpenAI(temperature=.5)
+    llm = OpenAI(temperature=0)
     return llm
 
 llm = load_llm()
